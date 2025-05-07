@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>عدّاد الطهارة</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f5f5f5;
+      text-align: center;
+      padding: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 30px;
+      max-width: 400px;
+      margin: auto;
+    }
+    button {
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      margin: 10px;
+      cursor: pointer;
+    }
+    button.reset {
+      background: #dc3545;
+    }
+    textarea {
+      width: 100%;
+      border-radius: 10px;
+      padding: 10px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+    }
+    .tip {
+      font-size: 14px;
+      margin-top: 20px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>عدّاد الأيام النظيفة</h2>
+    <h1 id="counter">0</h1>
+    <button onclick="incrementCounter()">يوم جديد نظيف</button>
+    <button class="reset" onclick="resetCounter()">سقطت اليوم</button>
+
+    <h3>ملاحظاتك اليوم:</h3>
+    <textarea id="note" placeholder="اكتب مشاعرك أو ملاحظاتك..." rows="4"></textarea>
+
+    <div class="tip" id="tip"></div>
+    <button onclick="emergencyHelp()">زر الطوارئ</button>
+  </div>
+
+  <script>
+    let counter = localStorage.getItem('cleanDays') || 0;
+    document.getElementById('counter').innerText = counter;
+
+    function incrementCounter() {
+      counter++;
+      localStorage.setItem('cleanDays', counter);
+      document.getElementById('counter').innerText = counter;
+    }
+
+    function resetCounter() {
+      if (confirm('هل أنت متأكد أنك سقطت اليوم؟')) {
+        counter = 0;
+        localStorage.setItem('cleanDays', counter);
+        document.getElementById('counter').innerText = counter;
+      }
+    }
+
+    const tips = [
+      'تذكر أن الله يراك ويعلم ضعفك، فاصبر واحتسب.',
+      'الهروب للمواقع الإباحية ليس حلًا، واجه ألمك بالصبر.',
+      'كل دقيقة تصبر فيها، تربح معركة.',
+      'دعاء اليوم: اللهم طهر قلبي وبصري واحفظني من الحرام.',
+      'عندما تغلب نفسك، تغلب الشيطان والدنيا.'
+    ];
+
+    document.getElementById('tip').innerText = tips[Math.floor(Math.random() * tips.length)];
+
+    function emergencyHelp() {
+      alert(tips[Math.floor(Math.random() * tips.length)]);
+    }
+  </script>
+</body>
+</html>
